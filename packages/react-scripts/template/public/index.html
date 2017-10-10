@@ -20,6 +20,28 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script>
+        var modernBrowser = (
+            'Map' in window &&
+            'Set' in window
+        )
+        var oldBrowser = !(
+            'fetch' in window &&
+            'assign' in Object
+        )
+        var polyfillSrc;
+        if (oldBrowser) {
+            polyfillSrc = 'polyfills.all.bundle.js';
+        } else if (!modernBrowser) {
+            polyfillSrc = 'polyfills.partial.bundle.js';
+        }
+        if (polyfillSrc) {
+            var scriptElement = document.createElement('script');
+            scriptElement.async = false;
+            scriptElement.src = polyfillSrc;
+            document.head.appendChild(scriptElement);
+        }
+    </script>
   </head>
   <body>
     <noscript>
